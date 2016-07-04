@@ -20,7 +20,7 @@
     </script>
     <script type="text/javascript" async defer src="http://maps.google.com/maps/api/js?v=3&callback=onGmapsReady"></script>
     <asset:stylesheet src="image-viewer"/>
-    <asset:stylesheet src="transcribe-widgets"/>
+    <asset:stylesheet src="transcribe-widgets" />
 
     <style type="text/css">
 
@@ -77,7 +77,6 @@
     }
 
     </style>
-    <g:layoutHead/>
 
 </head>
 
@@ -125,12 +124,14 @@
                 <g:hiddenField name="redirect" value="${params.redirect}"/>
                 <g:hiddenField name="id" value="${taskInstance?.id}"/>
 
-                <g:set var="sectionNumber" value="${1}"/>
+                %{--<g:set var="sectionNumber" value="${1}"/>--}%
 
-                <g:set var="nextSectionNumber" value="${{ sectionNumber++ }}"/>
+                %{--<g:set var="nextSectionNumber" value="${{ sectionNumber++ }}"/>--}%
 
-                <g:render template="/transcribe/${template.viewName}"
-                          model="${[taskInstance: taskInstance, recordValues: recordValues, isReadonly: isReadonly, template: template, nextTask: nextTask, prevTask: prevTask, sequenceNumber: sequenceNumber, imageMetaData: imageMetaData]}"/>
+                <g:pageProperty name="page.templateView"/>
+
+                %{--<g:render template="/transcribe/${template.viewName}"--}%
+                          %{--model="${[taskInstance: taskInstance, recordValues: recordValues, isReadonly: isReadonly, template: template, nextTask: nextTask, prevTask: prevTask, sequenceNumber: sequenceNumber, imageMetaData: imageMetaData]}"/>--}%
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -685,12 +686,12 @@
 
     </g:if>
 
-        var keepAliveInterval = 10; // Minutes
-        var intervalSeconds = 60 * keepAliveInterval;
+    var keepAliveInterval = 10; // Minutes
+    var intervalSeconds = 60 * keepAliveInterval;
 
-        // Set up the session keep alive
-        setInterval(function() {
-            $.ajax("${createLink(controller: 'ajax', action: 'keepSessionAlive')}").done(function(data) { });
+    // Set up the session keep alive
+    setInterval(function() {
+        $.ajax("${createLink(controller: 'ajax', action: 'keepSessionAlive')}").done(function(data) { });
         }, intervalSeconds * 1000);
 
         $("#btnSave").click(function(e) {
